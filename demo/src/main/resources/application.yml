@@ -1,0 +1,3 @@
+permission:
+  resources:
+    resources-path: org.nix.love.authorization.controller

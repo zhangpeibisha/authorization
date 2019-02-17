@@ -5,6 +5,7 @@ import org.nix.love.authorization.core.extractor.Resources;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -28,10 +29,10 @@ public class SpringMvcExtractorTest {
         });
     }
 
-    @RequestMapping(value = "/hello")
+    @RestController
     static class TestController{
 
-        @RequestMapping(value = "/get")
+        @GetMapping(value = "/get")
         public String helloGet(){
             return "hello";
         }

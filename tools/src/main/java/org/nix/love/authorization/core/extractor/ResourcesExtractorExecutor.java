@@ -41,7 +41,7 @@ public class ResourcesExtractorExecutor {
     /**
      * @return 提取资源信息并返回
      */
-    protected Set<Resources> extractor(){
+    public Set<Resources> extractor(){
         Set<Resources> resources = new HashSet<>();
         classes.forEach(aClass -> resources.addAll(resourcesExtractor.extractorResources(aClass)));
         return resources;

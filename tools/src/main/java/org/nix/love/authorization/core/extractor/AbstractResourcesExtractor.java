@@ -19,17 +19,33 @@ public abstract class AbstractResourcesExtractor implements ResourcesExtractor {
         // 返回的结果集合
         List<Resources> resources = new ArrayList<>();
         Annotation classAnnotation = getAnnotation(classzz);
-        // 如果类没有这个注解则返回空，表示是一个不需要权限控制的控制器
+        // 获取到合法的方法
+        List<Method> methods = filterMethod(classzz.getMethods());
+        // 如果类没有这个注解直接处理方法上的注解即可
         if (classAnnotation == null) {
-            return null;
+            for (Method method : methods) {
+                Annotation methodAnnotation = getAnnotation(method);
+                if (methodAnnotation != null) {
+                    List<RequestMethod> methodRequestMethod = getRequestMethods(methodAnnotation);
+                    String[] methodPath = getRequestUrl(methodAnnotation);
+                    for (String path : methodPath) {
+                        Resources resourcesResult = new Resources();
+                        // 获取到方法
+                        setRequestMethod(resourcesResult, methodRequestMethod, new ArrayList<>());
+                        // 设置请求路径
+                        resourcesResult.setUrl(path);
+                        // 设置其他信息
+                        setInfo(resourcesResult, method, methodAnnotation);
+                        resources.add(resourcesResult);
+                    }
+                }
+            }
+            return resources;
         }
         // 获取类上面的请求方法，如果有则记录，没有则不记录
         List<RequestMethod> requestMethods = getRequestMethods(classAnnotation);
-
         // 该方法的前缀
         String[] classPath = getRequestUrl(classAnnotation);
-        // 获取到合法的方法
-        List<Method> methods = filterMethod(classzz.getMethods());
         for (Method method : methods) {
             Annotation methodAnnotation = getAnnotation(method);
             if (methodAnnotation != null) {
