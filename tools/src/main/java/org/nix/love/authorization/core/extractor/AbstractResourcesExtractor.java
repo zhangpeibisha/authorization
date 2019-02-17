@@ -25,6 +25,7 @@ public abstract class AbstractResourcesExtractor implements ResourcesExtractor {
         }
         // 获取类上面的请求方法，如果有则记录，没有则不记录
         List<RequestMethod> requestMethods = getRequestMethods(classAnnotation);
+
         // 该方法的前缀
         String[] classPath = getRequestUrl(classAnnotation);
         // 获取到合法的方法

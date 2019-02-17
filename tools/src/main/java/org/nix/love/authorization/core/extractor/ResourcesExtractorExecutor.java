@@ -1,6 +1,6 @@
 package org.nix.love.authorization.core.extractor;
 
-import org.nix.love.common.utils.scan.ClassScannerUtils;
+import org.nix.love.authorization.utils.scan.ClassScannerUtils;
 
 import java.util.HashSet;
 import java.util.Set;
