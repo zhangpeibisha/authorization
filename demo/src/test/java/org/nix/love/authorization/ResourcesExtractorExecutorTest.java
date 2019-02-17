@@ -1,10 +1,13 @@
 package org.nix.love.authorization;
 
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONUtil;
 import org.junit.Test;
 import org.nix.love.authorization.config.extractor.SpringMvcExtractor;
 import org.nix.love.authorization.core.extractor.Resources;
 import org.nix.love.authorization.core.extractor.ResourcesExtractorExecutor;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -28,5 +31,16 @@ public class ResourcesExtractorExecutorTest {
                 System.out.println(resources);
             }
         });
+        System.out.println(JSONUtil.toJsonStr(extractor));
+
+    }
+
+    @Test
+    public void resgisterUser(){
+        HashMap<String, Object> paramMap = new HashMap<>();
+        paramMap.put("name","test");
+        paramMap.put("password","test");
+        String message = HttpUtil.post("localhost:8080/resources/user", paramMap);
+        System.out.println(message);
     }
 }
